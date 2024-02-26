@@ -64,6 +64,20 @@ def load_data():
     return train_df, eval_df, test_sentences, gold_tags
 
 
+def resolve_predictions(predictions, gold_tags):
+    flat_predictions = []
+    flat_gold_tags = []
+    count = 0
+    for pred, tag_list in zip(predictions, gold_tags):
+        if len(pred) == len(tag_list):
+            count += 1
+            flat_gold_tags.extend(tag_list)
+            for result in pred:
+                flat_predictions.append(list(result.values())[0])
+    print(f'total predicted sentence count : {count}')
+    return flat_predictions, flat_gold_tags
+
+
 def run(args):
     train_df, eval_df, test_sentences, gold_tags = load_data()
 
@@ -83,10 +97,7 @@ def run(args):
 
     predictions, raw_outputs = model.predict(test_sentences, split_on_space=False)
 
-    flat_predictions = [list(tag.values()) for prediction in predictions for tag in prediction]
-    flat_predictions = [p for pred in flat_predictions for p in pred]
-
-    flat_gold_values = [value for gold_list in gold_tags for value in gold_list]
+    flat_predictions, flat_gold_values = resolve_predictions(predictions, gold_tags)
 
     print_information(flat_predictions, flat_gold_values)
 
