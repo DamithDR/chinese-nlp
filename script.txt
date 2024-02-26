@@ -1,0 +1,1 @@
+python -m experiment.metaphor --model_name bert-base-chinese --model_type bert
