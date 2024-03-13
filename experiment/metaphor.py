@@ -43,11 +43,13 @@ def format_data(dataset):
 def format_test_data(dataset):
     sentences = []
     tags_list = []
+    raw_sentences = []
     dataset = pd.DataFrame(dataset)
-    for sent, tags in zip(dataset['tokenised_sentence'], dataset['tags']):
+    for sent, tags, raw_sent in zip(dataset['tokenised_sentence'], dataset['tags'], dataset['sentence']):
         sentences.append(sent)
         tags_list.append(tags)
-    return sentences, tags_list
+        raw_sentences.append(raw_sent)
+    return sentences, tags_list, raw_sentences
 
 
 def load_data():
@@ -59,9 +61,9 @@ def load_data():
     train, test = train_test_split(dataset, test_size=0.2, shuffle=True, random_state=777)
     train, evaluation = train_test_split(train, test_size=0.1, shuffle=True, random_state=777)
     train_df = format_data(train)
-    test_sentences, gold_tags = format_test_data(test)
+    test_sentences, gold_tags, raw_sentences = format_test_data(test)
     eval_df = format_data(evaluation)
-    return train_df, eval_df, test_sentences, gold_tags
+    return train_df, eval_df, test_sentences, gold_tags, raw_sentences
 
 
 def resolve_predictions(predictions, gold_tags):
@@ -79,7 +81,7 @@ def resolve_predictions(predictions, gold_tags):
 
 
 def run(args):
-    train_df, eval_df, test_sentences, gold_tags = load_data()
+    train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
     model = NERModel(
         model_type=args.model_type,
@@ -89,7 +91,7 @@ def run(args):
         args={"overwrite_output_dir": True,
               "reprocess_input_data": True,
               "num_train_epochs": 3,
-              "train_batch_size": 32,
+              "train_batch_size": 8,
               },
     )
 
