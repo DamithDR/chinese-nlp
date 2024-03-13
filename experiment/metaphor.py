@@ -91,7 +91,7 @@ def run(args):
         args={"overwrite_output_dir": True,
               "reprocess_input_data": True,
               "num_train_epochs": 3,
-              "train_batch_size": 8,
+              "train_batch_size": args.batch_size,
               },
     )
 
@@ -109,6 +109,7 @@ if __name__ == '__main__':
         description='''evaluates models on chinese metaphoric flower names detection''')
     parser.add_argument('--model_name', type=str, required=True, help='model_name_or_path')
     parser.add_argument('--model_type', type=str, required=True, help='model_type')
+    parser.add_argument('--batch_size', type=int, default=8, required=True, help='batch_size')
 
     args = parser.parse_args()
     run(args)
