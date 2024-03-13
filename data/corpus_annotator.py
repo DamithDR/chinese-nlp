@@ -7,9 +7,6 @@ flower_names = pd.read_csv('data/processed/annotation.tsv', sep='\t')
 
 metaphoric_set = set(flower_names[flower_names['label'] == 1]['name'].tolist())
 
-print(metaphoric_set)
-print(len(metaphoric_set))
-
 
 def get_annotations():
     with open('data/processed/sentenses.txt', 'r') as corpus:
