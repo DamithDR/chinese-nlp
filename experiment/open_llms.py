@@ -38,6 +38,7 @@ def run(args):
 
         Sentence : """
 
+    outputs = []
     for sentence, gold_tags in zip(raw_sentences, gold_tags):
         prompt += sentence
 
@@ -49,7 +50,7 @@ def run(args):
     out_list = []
     out_list.extend([tokenizer.decode(out, skip_special_tokens=True) for out in outputs])
 
-    alias = str(args.model_name).replace('/','_')
+    alias = str(args.model_name).replace('/', '_')
     with open(f'raw_results_from_model{alias}.txt', 'w') as f:
         f.writelines("\n".join(out_list))
 
