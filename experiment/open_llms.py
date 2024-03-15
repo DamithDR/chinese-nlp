@@ -8,11 +8,11 @@ from experiment.metaphor import load_data
 
 
 def run(args):
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name, cache_dir=args.cache_dir)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_name, cache_dir=args.cache_dir)
+    model = AutoModelForCausalLM.from_pretrained(args.model_name)
 
     train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
@@ -59,7 +59,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='''evaluates models on chinese metaphoric flower names detection''')
     parser.add_argument('--model_name', type=str, required=True, help='model_name_or_path')
-    parser.add_argument('--cache_dir', type=str, required=True, help='cache directory path')
 
     args = parser.parse_args()
     run(args)
