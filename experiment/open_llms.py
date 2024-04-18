@@ -8,11 +8,14 @@ from experiment.metaphor import load_data
 
 
 def run(args):
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_name)
+    model = AutoModelForCausalLM.from_pretrained(args.model_name).to(device)
 
     train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
