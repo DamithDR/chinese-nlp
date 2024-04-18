@@ -15,7 +15,7 @@ def run(args):
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_name).to(device)
+    model = AutoModelForCausalLM.from_pretrained(args.model_name, trust_remote_code=True).to(device)
 
     train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
@@ -46,7 +46,7 @@ def run(args):
 
     current_number = 0
     out_list = []
-    for i in tqdm(range(0, total_sent, args.batch_size)):
+    for i in tqdm(range(args.batch_size, total_sent, args.batch_size)):
         if current_number + i > total_sent:
             sents = raw_sentences[current_number:]
         else:
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='''evaluates models on chinese metaphoric flower names detection''')
     parser.add_argument('--model_name', type=str, required=True, help='model_name_or_path')
-    parser.add_argument('--batch_size', type=int, required=False, default=16, help='batch_size')
+    parser.add_argument('--batch_size', type=int, required=False, default=2, help='batch_size')
 
     args = parser.parse_args()
     run(args)
