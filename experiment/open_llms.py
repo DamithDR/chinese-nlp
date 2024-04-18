@@ -2,13 +2,13 @@
 import argparse
 
 import torch
+from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 
 from experiment.metaphor import load_data
 
 
 def run(args):
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
@@ -42,16 +42,36 @@ def run(args):
         句子 : """
 
     outputs = []
-    for sentence, gold_tags in zip(raw_sentences, gold_tags):
-        prompt += sentence
+    total_sent = len(raw_sentences)
 
-        encoding = tokenizer(prompt, padding=True, truncation=False, return_tensors="pt").to(model.device)
+    current_number = 0
+    out_list = []
+    for i in tqdm(range(0, total_sent, args.batch_size)):
+        if current_number + i > total_sent:
+            sents = raw_sentences[current_number:]
+        else:
+            sents = raw_sentences[current_number:current_number + i]
+
+        data_batch = [prompt + s for s in sents]
+        current_number += i
+        encoding = tokenizer(data_batch, padding=True, truncation=False, return_tensors="pt").to(model.device)
+        # do the inference
         outputs = model.generate(input_ids=encoding.input_ids, attention_mask=encoding.attention_mask,
                                  generation_config=generation_config)
         detach = outputs.detach().cpu().numpy()
         outputs = detach.tolist()
-    out_list = []
-    out_list.extend([tokenizer.decode(out, skip_special_tokens=True) for out in outputs])
+        out_list.extend([tokenizer.decode(out, skip_special_tokens=True) for out in outputs])
+
+    # for sentence, gold_tags in zip(raw_sentences, gold_tags):
+    #     prompt += sentence
+    #
+    #     encoding = tokenizer(prompt, padding=True, truncation=False, return_tensors="pt").to(model.device)
+    #     outputs = model.generate(input_ids=encoding.input_ids, attention_mask=encoding.attention_mask,
+    #                              generation_config=generation_config)
+    #     detach = outputs.detach().cpu().numpy()
+    #     outputs = detach.tolist()
+    #
+    #     out_list.extend([tokenizer.decode(out, skip_special_tokens=True) for out in outputs])
 
     alias = str(args.model_name).replace('/', '_')
     with open(f'raw_results_from_model{alias}.txt', 'w') as f:
@@ -62,6 +82,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='''evaluates models on chinese metaphoric flower names detection''')
     parser.add_argument('--model_name', type=str, required=True, help='model_name_or_path')
+    parser.add_argument('--batch_size', type=int, required=False, default=16, help='batch_size')
 
     args = parser.parse_args()
     run(args)
