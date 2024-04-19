@@ -24,8 +24,8 @@ def run(args):
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_name, trust_remote_code=True)
-    model = nn.DataParallel(model).to(device)
+    initial_model = AutoModelForCausalLM.from_pretrained(args.model_name, trust_remote_code=True)
+    model = nn.DataParallel(initial_model).to(device)
 
     train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
@@ -35,8 +35,8 @@ def run(args):
     # prompt_list = [f'<s>[INST] {prompt} [/INST]'for prompt in prompt_list]
 
     generation_config = GenerationConfig(
-        max_new_tokens=100, do_sample=True, top_k=20, eos_token_id=model.config.eos_token_id,
-        pad_token_id=model.config.eos_token_id, temperature=0.2,
+        max_new_tokens=100, do_sample=True, top_k=20, eos_token_id=initial_model.config.eos_token_id,
+        pad_token_id=initial_model.config.eos_token_id, temperature=0.2,
         num_return_sequences=1)
 
     prompt = """
