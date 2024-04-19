@@ -39,7 +39,7 @@ def run(args):
         如：植物名“玉蜀黍”中，“玉”并不是植物本身的特性，而是植物的某一特征和玉的某一特征类似，故而用“玉”来暗指植物像玉一样。因此这个植物名可判定为隐喻植物名。
         你的任务是在给定的中文文本中识别出隐喻植物名。
         你必须确定是否有隐喻植物名，并以json格式回应是或否（取决于是否有隐喻植物名）并回应一个包含名字列表的json对象。
-        json对象示例 : {metaphoric_names_found : 'yes',metaphoric_names = ['name1','name2']}
+        json对象示例 : {"metaphoric_names_found" : "yes","metaphoric_names" = ["name1","name2"]}
         不需要提供任何其他解释，只需要返回带结果的json对象。
 
         句子 : {sentence}"""
