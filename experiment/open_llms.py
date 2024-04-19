@@ -1,12 +1,17 @@
 # Load model directly
 import argparse
+import gc
 
+import jieba
 import torch
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 
 from experiment.metaphor import load_data
 
+def clear_gpu_memory():
+    torch.cuda.empty_cache()
+    gc.collect()
 
 def run(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -43,6 +48,13 @@ def run(args):
 
     outputs = []
     total_sent = len(raw_sentences)
+    max = 0
+    for sent in raw_sentences:
+        length = len(list(jieba.cut(sent)))
+        if max<length:
+            max = length
+    print(max)
+
 
     current_number = 0
     out_list = []
@@ -61,6 +73,7 @@ def run(args):
         detach = outputs.detach().cpu().numpy()
         outputs = detach.tolist()
         out_list.extend([tokenizer.decode(out, skip_special_tokens=True) for out in outputs])
+        clear_gpu_memory()
 
     # for sentence, gold_tags in zip(raw_sentences, gold_tags):
     #     prompt += sentence
