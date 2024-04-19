@@ -24,7 +24,6 @@ def run(args):
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         device_map="auto",
-        max_length=200,
         do_sample=True,
         max_new_tokens=100,
         top_k=20,
@@ -32,7 +31,8 @@ def run(args):
         eos_token_id=tokenizer.eos_token_id
     )
 
-    llm = HuggingFacePipeline(pipeline=pipeline, model_kwargs={'temperature': 0.2, 'do_sample': True})
+    llm = HuggingFacePipeline(pipeline=pipeline,
+                              model_kwargs={'temperature': 0.2, 'do_sample': True, 'trust_remote_code': True})
     template = """
         隐喻是一种创造性描述方式，通过使用另一事物来描述某一事物，暗示两者在某方面具有相同的特征，同时避免使用“像”或“似”这样的比较词。
         因此，隐喻植物名就是指该植物名中至少有一个词包含隐喻，通过比较或暗示植物与所比较概念或物体的相似之处，唤起特定的形象或情感。
