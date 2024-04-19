@@ -5,6 +5,7 @@ import gc
 import jieba
 import torch
 from tqdm import tqdm
+import torch.nn as nn
 from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig
 
 from experiment.metaphor import load_data
@@ -13,14 +14,18 @@ def clear_gpu_memory():
     torch.cuda.empty_cache()
     gc.collect()
 
+
 def run(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    num_gpus = torch.cuda.device_count()
+    print("Number of GPUs available:", num_gpus)
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_name, trust_remote_code=True).to(device)
+    model = AutoModelForCausalLM.from_pretrained(args.model_name, trust_remote_code=True)
+    model = nn.DataParallel(model).to(device)
 
     train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
 
@@ -32,8 +37,7 @@ def run(args):
     generation_config = GenerationConfig(
         max_new_tokens=100, do_sample=True, top_k=20, eos_token_id=model.config.eos_token_id,
         pad_token_id=model.config.eos_token_id, temperature=0.2,
-        num_return_sequences=1, torch_dtype=torch.bfloat16,
-    )
+        num_return_sequences=1)
 
     prompt = """
         隐喻是一种创造性描述方式，通过使用另一事物来描述某一事物，暗示两者在某方面具有相同的特征，同时避免使用“像”或“似”这样的比较词。
@@ -48,13 +52,6 @@ def run(args):
 
     outputs = []
     total_sent = len(raw_sentences)
-    max = 0
-    for sent in raw_sentences:
-        length = len(list(jieba.cut(sent)))
-        if max<length:
-            max = length
-    print(max)
-
 
     current_number = 0
     out_list = []
