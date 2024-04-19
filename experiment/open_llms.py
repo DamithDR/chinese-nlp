@@ -51,7 +51,7 @@ def run(args):
     out_list = []
     with tqdm(total=len(raw_sentences)) as pbar:
         for sent in raw_sentences:
-            response = llm_chain.generate(sentence=sent)
+            response = llm_chain.invoke({'sentence': sent})
             out_list.extend(response)
             pbar.update(1)
 
