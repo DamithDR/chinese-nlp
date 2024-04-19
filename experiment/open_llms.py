@@ -63,9 +63,9 @@ def run(args):
 
         data_batch = [prompt + s for s in sents]
         current_number += i
-        encoding = tokenizer(data_batch, padding=True, truncation=False, return_tensors="pt").to(model.device)
+        encoding = tokenizer(data_batch, padding=True, truncation=False, return_tensors="pt").to(initial_model.device)
         # do the inference
-        outputs = model.generate(input_ids=encoding.input_ids, attention_mask=encoding.attention_mask,
+        outputs = model.module.generate(input_ids=encoding.input_ids, attention_mask=encoding.attention_mask,
                                  generation_config=generation_config)
         detach = outputs.detach().cpu().numpy()
         outputs = detach.tolist()
