@@ -64,17 +64,19 @@ def run(args):
     prompts = list(map(lambda sent: template + sent, raw_sentences))
     prompts = list(map(lambda prompt: '[INST]' + prompt + '[/INST]', prompts))
 
+    print(f'prompt 1 : {prompts[0]}')
+    print(f'prompt 2 : {prompts[1]}')
+    print(f'prompt 3 : {prompts[2]}')
+
     print('predicting outputs...')
     results = text_generator(prompts)
 
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
 
-    print(results[0])
-    print("======================================")
-    print(results[1])
-    print("======================================")
-    print(results[2])
+    print(f'results 1 : {results[0]}')
+    print(f'results 2 : {results[1]}')
+    print(f'results 3 : {results[2]}')
 
     objects = [json.loads(result) for result in results]
 
