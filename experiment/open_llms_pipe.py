@@ -37,6 +37,7 @@ def run(args):
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     tokenizer.pad_token = "[PAD]"
     tokenizer.padding_side = "left"
+    tokenizer.pad_token_id = tokenizer.eos_token_id
     text_generator = pipeline(
         "text-generation",  # task
         tokenizer=tokenizer,
@@ -52,7 +53,7 @@ def run(args):
         num_return_sequences=1,
         temperature=0.1,
         # eos_token_id=tokenizer.eos_token_id,
-        pad_token_id=tokenizer.eos_token_id,
+        # pad_token_id=tokenizer.eos_token_id,
     )
 
     # Data
