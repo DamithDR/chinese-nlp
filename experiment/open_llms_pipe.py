@@ -1,3 +1,4 @@
+import torch.cuda
 from transformers import pipeline
 
 # Define the model name or path
@@ -21,6 +22,8 @@ prompt = """
     Sentence : See ceanothus ‘Gloire de Versailles’
 """
 
-text = text_generator(prompt, max_new_tokens=200, do_sample=True, device_map="auto")[0]['generated_text']
+print(torch.cuda.device_count())
+
+text = text_generator(prompt, max_new_tokens=200, do_sample=True, device=0)[0]['generated_text']
 
 print(text)
