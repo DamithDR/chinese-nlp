@@ -19,7 +19,7 @@ def get_template(language):
             你的任务是在给定的中文文本中识别出隐喻植物名。
             你必须确定是否有隐喻植物名，并以json格式回应是或否（取决于是否有隐喻植物名）并回应一个包含名字列表的json对象。
             json对象示例 : {"metaphoric_names_found" : "yes","metaphoric_names" = ["name1","name2"]}
-            不需要提供任何其他解释，只需要返回带结果的json对象。
+            不做解释。不承认。只返回带有结果的 json 对象。除了 json 对象之外，不要提供任何其他句子。
     
             句子 : """
         return template
@@ -45,7 +45,7 @@ def get_template(language):
                 Su tarea es identificar nombres de flores metafóricos en el texto en inglés dado.
                 Debes identificar si hay nombres de flores metafóricos que responden en formato json de sí/no (dependiendo de si hay un nombre de flor metafórico o no) y la lista de nombres en un objeto json.
                 Objeto json de ejemplo: {metaphoric_names_found: 'yes',metaphoric_names = ['nombre1','nombre2']}
-                No proporciones ninguna otra explicación. Simplemente devuelva el objeto json con los resultados.
+                No des explicaciones. No lo reconozcas. Solo devuelve el objeto json con los resultados. No proporcione ninguna otra oración que no sea el objeto json.
 
                 Oración: """
         return template
