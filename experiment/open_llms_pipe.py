@@ -66,6 +66,8 @@ def run(args):
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
 
+    print(results)
+
     objects = [json.loads(result) for result in results]
 
     alias = str(args.model_name).replace('/', '_')
