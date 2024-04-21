@@ -1,5 +1,6 @@
 import argparse
 import json
+import re
 
 import torch.cuda
 from tqdm import tqdm
@@ -19,6 +20,15 @@ class ListDataset:
 
     def __getitem__(self, i):
         return self.original_list[i]
+
+
+def extract_json_objects(string):
+    pattern = r'{(.*?)}'  # Matches anything between curly braces
+    json_objects = re.findall(pattern, string)
+    if json_objects:
+        return json_objects
+    else:
+        return [{"metaphoric_names_found": "no", "metaphoric_names": []}]
 
 
 def run(args):
@@ -74,6 +84,7 @@ def run(args):
 
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
+    results = [extract_json_objects(result)[0] for result in results]
 
     print(f'results 1 : {results[0]}')
     print(f'results 2 : {results[1]}')
