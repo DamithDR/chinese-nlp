@@ -70,6 +70,7 @@ def run(args):
 
     print('predicting outputs...')
     results = text_generator(prompts)
+    print('predicting completed...')
 
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
@@ -78,9 +79,12 @@ def run(args):
     print(f'results 2 : {results[1]}')
     print(f'results 3 : {results[2]}')
 
-    objects = [json.loads(result) for result in results]
+    print('json loading started')
+    objects = [json.loads(result) for result in tqdm(results)]
+    print('json loading finished')
 
     alias = str(args.model_name).replace('/', '_')
+
     with open(f'{alias}_{args.language}_results.json', "w") as json_file:
         json.dump(objects, json_file, ensure_ascii=False)
     print('Done')

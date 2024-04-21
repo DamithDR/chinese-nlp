@@ -105,7 +105,7 @@ def run(args):
             pbar.update(1)
 
     alias = str(args.model_name).replace('/', '_')
-    with open(f'raw_results__model_{alias}_{args.language}.txt', 'w') as f:
+    with open(f'raw_results_model_{alias}_{args.language}.txt', 'w') as f:
         f.writelines("\n".join(out_list))
 
 
