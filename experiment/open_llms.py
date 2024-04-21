@@ -31,9 +31,9 @@ def get_template(language):
                 For example, the flower name "Forget-me-not" is metaphorical. While it directly refers to the tiny, delicate blue flowers of the Myosotis genus, its name carries emotional connotations beyond its physical appearance. "Forget-me-not" suggests remembrance, loyalty, and enduring love. It metaphorically implies that the giver of the flower is asking the recipient not to forget them and to remember the bond they share, making it a poignant and symbolic name for this charming flower.
                 Your task is to identify metaphorical flower names in the given English text.
                 You must identify if there are metaphoric flower names respond as a json format of yes/no (depending on there is a metaphorical flower name or not) and the list of names in a json object.
+                Do not tell anything else. Only return json object with the results.
                 Example json object : {metaphoric_names_found : 'yes',metaphoric_names = ['name1','name2']}
-                Do not provide any other explanation. Just return json object with the results.
-
+                
                 Sentence : """
         return template
     elif language == 'es':
