@@ -69,7 +69,8 @@ def run(args):
             raw_sentences = f.readlines()
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
 
-    raw_sentences = raw_sentences[:20]
+    #testing purpose
+    # raw_sentences = raw_sentences[:20]
 
     template = get_template(args.language)
     prompts = list(map(lambda sent: template + sent, raw_sentences))
