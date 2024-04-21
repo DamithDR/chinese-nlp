@@ -25,7 +25,7 @@ class ListDataset:
 def extract_json_objects(string):
     pattern = r'{(.*?)}'  # Matches anything between curly braces
     json_objects = re.findall(pattern, string)
-    json_objects = ["{" + obj + "}" for obj in json_objects]
+    json_objects = ["{" + str(obj).replace('=',':') + "}" for obj in json_objects]
     if json_objects:
         return json_objects
     else:
