@@ -21,6 +21,6 @@ prompt = """
     Sentence : See ceanothus ‘Gloire de Versailles’
 """
 
-text = text_generator(prompt, max_length=200, do_sample=True)[0]['generated_text']
+text = text_generator(prompt, max_new_tokens=200, do_sample=True)[0]['generated_text']
 
 print(text)
