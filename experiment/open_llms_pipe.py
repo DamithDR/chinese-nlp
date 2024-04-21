@@ -87,9 +87,8 @@ def run(args):
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
     results = [extract_json_objects(result)[0] for result in results]
 
-    print(f'results 1 : {results[0]}')
-    print(f'results 2 : {results[1]}')
-    print(f'results 3 : {results[2]}')
+    for r in results:
+        print(f'results  : {r}')
 
     print('json loading started')
     objects = [json.loads(result) for result in tqdm(results)]
