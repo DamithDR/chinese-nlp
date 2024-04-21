@@ -97,6 +97,8 @@ def run(args):
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
 
     raw_sentences = raw_sentences[:5]
+    print(raw_sentences)
+    print(prompt)
     out_list = []
     with tqdm(total=len(raw_sentences)) as pbar:
         for sent in raw_sentences:
