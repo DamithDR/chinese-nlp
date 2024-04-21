@@ -21,7 +21,7 @@ def get_template(language):
             json对象示例 : {{"metaphoric_names_found" : "yes","metaphoric_names" = ["name1","name2"]}}
             不需要提供任何其他解释，只需要返回带结果的json对象。
     
-            句子 : {sentence}"""
+            句子 : """
         return template
     elif language == 'en':
         template = """
@@ -34,7 +34,7 @@ def get_template(language):
                 Example json object : {{metaphoric_names_found : 'yes',metaphoric_names = ['name1','name2']}}
                 Do not provide any other explanation. Just return json object with the results.
 
-                Sentence : {sentence}"""
+                Sentence : """
         return template
     elif language == 'es':
         template = """
@@ -47,9 +47,7 @@ def get_template(language):
                 Objeto json de ejemplo: {{metaphoric_names_found: 'yes',metaphoric_names = ['nombre1','nombre2']}}
                 No proporciones ninguna otra explicación. Simplemente devuelva el objeto json con los resultados.
 
-                Oración: {sentence}
-        
-        """
+                Oración: """
         return template
 
 
