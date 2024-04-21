@@ -2,8 +2,8 @@ import torch.cuda
 from transformers import pipeline
 
 # Define the model name or path
-# model_name = "meta-llama/Llama-2-13b-chat-hf"
-model_name = "meta-llama/Llama-2-13b-hf"
+model_name = "meta-llama/Llama-2-13b-chat-hf"
+# model_name = "meta-llama/Llama-2-13b-hf"
 # model_name = "tiiuae/falcon-40b"
 
 # Create the text generation pipeline
