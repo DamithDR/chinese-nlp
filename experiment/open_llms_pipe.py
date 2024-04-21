@@ -69,7 +69,7 @@ def run(args):
             raw_sentences = f.readlines()
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
 
-    #testing purpose
+    # testing purpose
     # raw_sentences = raw_sentences[:20]
 
     template = get_template(args.language)
@@ -83,9 +83,6 @@ def run(args):
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
     results = [extract_json_objects(result)[0] for result in results]
-
-    for r in results:
-        print(r)
 
     print('json loading started')
     objects = [json.loads(result) for result in tqdm(results)]
