@@ -80,12 +80,17 @@ def run(args):
     results = text_generator(prompts)
     print('predicting completed...')
 
-    # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
-    results = [extract_json_objects(result)[0] for result in results]
+
+    json_results = []
+    for result in results:
+        try:
+            json_results.append(extract_json_objects(result)[0])
+        except json.decoder.JSONDecodeError as e:
+            json_results.append("""{"metaphoric_names_found": "no", "metaphoric_names": []}""")
 
     print('json loading started')
-    objects = [json.loads(result) for result in tqdm(results)]
+    objects = [json.loads(result) for result in tqdm(json_results)]
     print('json loading finished')
 
     alias = str(args.model_name).replace('/', '_')
