@@ -60,10 +60,8 @@ def run(args):
     prompts = list(map(lambda sent: template + sent, raw_sentences))
     prompts = list(map(lambda prompt: '[INST]' + prompt + '[/INST]', prompts))
 
-    prompt_set = ListDataset(prompts)
-
     print('predicting outputs...')
-    results = text_generator(prompt_set)
+    results = text_generator(prompts)
 
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
