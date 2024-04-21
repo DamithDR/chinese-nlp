@@ -3,7 +3,7 @@ import json
 
 import torch.cuda
 from tqdm import tqdm
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 
 from experiment.metaphor import load_data
 from experiment.open_llms import get_template
@@ -23,8 +23,12 @@ class ListDataset:
 
 def run(args):
     # model
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
+    tokenizer.pad_token = "[PAD]"
+    tokenizer.padding_side = "left"
     text_generator = pipeline(
         "text-generation",  # task
+        tokenizer=tokenizer,
         model=args.model_name,
         torch_dtype="auto",
         trust_remote_code=True,
