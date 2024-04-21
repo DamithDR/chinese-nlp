@@ -70,7 +70,7 @@ def run(args):
         do_sample=True,
         max_new_tokens=100,
         top_k=20,
-        num_return_sequences=1,
+        num_return_sequences=20,
         eos_token_id=tokenizer.eos_token_id
     )
 
