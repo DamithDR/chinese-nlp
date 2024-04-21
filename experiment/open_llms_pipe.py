@@ -106,7 +106,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='''evaluates models on chinese metaphoric flower names detection''')
     parser.add_argument('--model_name', type=str, required=True, help='model_name_or_path')
-    parser.add_argument('--batch_size', type=int, required=False, default=16, help='batch_size')
+    parser.add_argument('--batch_size', type=int, required=False, default=32, help='batch_size')
     parser.add_argument('--language', type=str, required=True, default='zh', help='language to run experiment')
 
     args = parser.parse_args()
