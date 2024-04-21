@@ -55,6 +55,7 @@ print(torch.cuda.device_count())
 
 print("===========================================================================")
 
-text = text_generator(prompt)[0]['generated_text']
+text = str(text_generator(prompt)[0]['generated_text'])
+text = text.split('[/INST]')[1].strip()
 
 print(text)
