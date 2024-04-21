@@ -69,6 +69,7 @@ def run(args):
     print(results[0])
     print("======================================")
     print(results[1])
+    print("======================================")
     print(results[2])
 
     objects = [json.loads(result) for result in results]
