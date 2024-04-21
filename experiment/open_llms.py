@@ -31,7 +31,7 @@ def get_template(language):
                 For example, the flower name "Forget-me-not" is metaphorical. While it directly refers to the tiny, delicate blue flowers of the Myosotis genus, its name carries emotional connotations beyond its physical appearance. "Forget-me-not" suggests remembrance, loyalty, and enduring love. It metaphorically implies that the giver of the flower is asking the recipient not to forget them and to remember the bond they share, making it a poignant and symbolic name for this charming flower.
                 Your task is to identify metaphorical flower names in the given English text.
                 You must identify if there are metaphoric flower names respond as a json format of yes/no (depending on there is a metaphorical flower name or not) and the list of names in a json object.
-                Example json object : {metaphoric_names_found : 'yes',metaphoric_names = ['name1','name2']}
+                Example json object : {"metaphoric_names_found" : 'yes',"metaphoric_names" = ['name1','name2']}
                 Do not give explanations. Do not acknowledge. Only return json object with the results. Do not provide any other sentence but the json object.
                 
                 Sentence : """
@@ -44,7 +44,7 @@ def get_template(language):
                 Por ejemplo, el nombre de la flor "No me olvides" es metafórico. Si bien se refiere directamente a las diminutas y delicadas flores azules del género Myosotis, su nombre tiene connotaciones emocionales más allá de su apariencia física. "No me olvides" sugiere recuerdo, lealtad y amor duradero. Metafóricamente implica que el donante de la flor le pide al destinatario que no lo olvide y que recuerde el vínculo que comparten, lo que lo convierte en un nombre conmovedor y simbólico para esta encantadora flor.
                 Su tarea es identificar nombres de flores metafóricos en el texto en inglés dado.
                 Debes identificar si hay nombres de flores metafóricos que responden en formato json de sí/no (dependiendo de si hay un nombre de flor metafórico o no) y la lista de nombres en un objeto json.
-                Objeto json de ejemplo: {metaphoric_names_found: 'yes',metaphoric_names = ['nombre1','nombre2']}
+                Objeto json de ejemplo: {"metaphoric_names_found": 'yes',"metaphoric_names" = ['nombre1','nombre2']}
                 No des explicaciones. No lo reconozcas. Solo devuelve el objeto json con los resultados. No proporcione ninguna otra oración que no sea el objeto json.
 
                 Oración: """
