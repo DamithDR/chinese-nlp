@@ -59,7 +59,7 @@ def run(args):
     # Data
     # chinese
     raw_sentences = []
-    if args.language == 'zh':
+    if args.language == 'zh' or args.language == 'zh_en':
         train_df, eval_df, test_sentences, gold_tags, raw_sentences = load_data()
     elif args.language == 'en':
         with open('data/en_es/en.txt', 'r') as f:

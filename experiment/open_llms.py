@@ -23,7 +23,7 @@ def get_template(language):
     
             句子 : """
         return template
-    elif language == 'en':
+    elif language == 'en' or language == 'zh_en':
         template = """
                 A metaphor is an imaginative way of describing something by referring to something else which is the same in a particular way without using the word "like" or "as".
                 Therefore, a metaphorical plant name would be a name given to a plant that contains at least one metaphorical word which would typically draw a comparison or imply a similarity between the plant and the concept or object it is being compared to, often to evoke a particular image or emotion.
