@@ -24,6 +24,9 @@ prompt = """
 
 print(torch.cuda.device_count())
 
+print("===========================================================================")
+
+
 text = text_generator(prompt, max_new_tokens=200, do_sample=True)[0]['generated_text']
 
 print(text)
