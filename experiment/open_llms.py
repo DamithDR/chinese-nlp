@@ -70,7 +70,7 @@ def run(args):
         do_sample=True,
         max_new_tokens=100,
         top_k=20,
-        num_return_sequences=20,
+        num_return_sequences=1,
         eos_token_id=tokenizer.eos_token_id
     )
 
@@ -96,13 +96,13 @@ def run(args):
             raw_sentences = f.readlines()
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
 
-    raw_sentences = raw_sentences[:5]
+    raw_sentences = raw_sentences[:2]
     print(raw_sentences)
     print(prompt)
     out_list = []
     with tqdm(total=len(raw_sentences)) as pbar:
         for sent in raw_sentences:
-            response = llm_chain.invoke({'sentence': sent})
+            response = llm_chain.run(sent)
             out_list.extend(response)
             pbar.update(1)
 
