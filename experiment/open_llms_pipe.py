@@ -19,7 +19,7 @@ text_generator = pipeline(
     # batch_size=args.batch_size,
     top_k=20,
     num_return_sequences=1,
-    temperature=0.8,
+    temperature=0.1,
     # eos_token_id=tokenizer.eos_token_id,
     # pad_token_id=tokenizer.eos_token_id,
 )
