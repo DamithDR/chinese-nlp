@@ -5,7 +5,23 @@ from transformers import pipeline
 model_name = "meta-llama/Llama-2-13b-chat-hf"
 
 # Create the text generation pipeline
-text_generator = pipeline("text-generation", model=model_name,device_map='auto')
+# text_generator = pipeline("text-generation", model=model_name,device_map='auto')
+text_generator = pipeline(
+        "text-generation",  # task
+        model=model_name,
+        torch_dtype="auto",
+        trust_remote_code=True,
+        device_map="auto",
+        do_sample=True,
+        max_new_tokens=50,
+        # batch_size=args.batch_size,
+        top_k=20,
+        num_return_sequences=1,
+        temperature=0.2,
+        # eos_token_id=tokenizer.eos_token_id,
+        # pad_token_id=tokenizer.eos_token_id,
+    )
+
 
 # Generate text using the pipeline
 
