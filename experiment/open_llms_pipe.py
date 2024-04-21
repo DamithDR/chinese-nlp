@@ -29,7 +29,7 @@ def extract_json_objects(string):
     if json_objects:
         return json_objects
     else:
-        return [{"metaphoric_names_found": "no", "metaphoric_names": []}]
+        return ["""{"metaphoric_names_found": "no", "metaphoric_names": []}"""]
 
 
 def run(args):
