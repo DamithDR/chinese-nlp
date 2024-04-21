@@ -76,10 +76,6 @@ def run(args):
     prompts = list(map(lambda sent: template + sent, raw_sentences))
     prompts = list(map(lambda prompt: '[INST]' + prompt + '[/INST]', prompts))
 
-    print(f'prompt 1 : {prompts[0]}')
-    print(f'prompt 2 : {prompts[1]}')
-    print(f'prompt 3 : {prompts[2]}')
-
     print('predicting outputs...')
     results = text_generator(prompts)
     print('predicting completed...')
