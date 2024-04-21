@@ -66,7 +66,10 @@ def run(args):
     # testing
     results = [result[0]['generated_text'].split('[/INST]')[1].strip() for result in results]
 
-    print(results)
+    print(results[0])
+    print("======================================")
+    print(results[1])
+    print(results[2])
 
     objects = [json.loads(result) for result in results]
 
