@@ -65,7 +65,7 @@ def run(args):
         with open('data/en_es/en.txt', 'r') as f:
             raw_sentences = f.readlines()
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
-    elif args.language == 'es':
+    elif args.language == 'es' or args.language == 'es_en':
         with open('data/en_es/es.txt', 'r') as f:
             raw_sentences = f.readlines()
             raw_sentences = [sent.replace('\n', '') for sent in raw_sentences]
