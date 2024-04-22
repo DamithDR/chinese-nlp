@@ -15,7 +15,7 @@ def run(args):
             sentences = [sent.replace('\n', '') for sent in sentences]
         golds = pd.read_csv('data/en_es/en_test.tsv', sep='\t')
         golds = golds['labels'].to_list()
-    elif args.language == 'es':
+    elif args.language == 'es' or args.language == 'es_en':
         golds = pd.read_csv('data/en_es/es_test.tsv', sep='\t')
         golds = golds['labels'].to_list()
         with open('data/en_es/es.txt', 'r') as f:
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='''evaluate llms on their output''')
     parser.add_argument('--file_name', type=str, required=True, help='response_file')
-    parser.add_argument('--language', type=str, default='es', required=False, help='response_file')
+    parser.add_argument('--language', type=str, default='es_en', required=False, help='response_file')
 
     args = parser.parse_args()
     run(args)
